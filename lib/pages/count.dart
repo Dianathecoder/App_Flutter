@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Count extends StatefulWidget {
-  const Count({super.key});
+  final String username;
+  const Count({super.key, required this.username});
 
   @override
   State<Count> createState() => _CountState();
@@ -45,7 +46,13 @@ class _CountState extends State<Count> {
                 color: const Color.fromARGB(50, 0, 0, 0),
               ),
               alignment: Alignment.center,
-              child: const Text("Bienvenid@", style: TextStyle(fontSize: 16)),
+              child: Text(
+                "Bienvenid@, ${widget.username}",
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
 
             const SizedBox(height: 25),

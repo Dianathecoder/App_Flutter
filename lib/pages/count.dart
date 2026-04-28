@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'pantallaDetalle.dart';
 
-class Count extends StatelessWidget {
-  final String username;
+//// StatefulWidget: Permite que la pantalla se redibuje cuando la lista cambie (borrado)
+class Count extends StatefulWidget {
+  final String username; //Variable que recibe el nombre desde el LoginPage
+  const Count({super.key, required this.username});
+
+  @override
+  State<Count> createState() => _CountState();
+}
+
+class _CountState extends State<Count> {
+  // 1. Lista de datos: Definida dentro del State para que sea mutable y reaccione al setState
   final List<Map<String, String>> ciudades = [
     {
       "nombre": "Delhi",
@@ -30,33 +39,38 @@ class Count extends StatelessWidget {
     },
   ];
 
-  Count({super.key, required this.username});
   @override
   Widget build(BuildContext context) {
     const Color colorLogo = Color.fromARGB(255, 118, 143, 95);
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255), // Fondo blanco
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
+        // widget.username: Forma de acceder a los datos del constructor desde el State
         title: Text(
-          "¡Hola $username!",
+          "¡Hola ${widget.username}!",
           style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: colorLogo,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
+
+      // ListView.builder: Crea los elementos de la lista de forma eficiente bajo demanda
       body: ListView.builder(
-        itemCount: ciudades.length,
+        itemCount:
+            ciudades.length, //// Indica cuántos elementos hay en la lista
         padding: const EdgeInsets.symmetric(vertical: 10),
         itemBuilder: (context, index) {
-          final ciudad = ciudades[index];
+          final ciudad =
+              ciudades[index]; // Extrae la ciudad actual por su índice
           return Container(
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: colorLogo, // La tarjeta ahora tiene el color del logo
+              color: colorLogo,
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
+                //Sombra suave para dar profundidad
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
                   blurRadius: 8,
@@ -66,12 +80,15 @@ class Count extends StatelessWidget {
             ),
             child: ListTile(
               contentPadding: const EdgeInsets.all(12),
+              // Hero origen: Define el widget que "volará" a la siguiente pantalla
               leading: Hero(
                 tag: ciudad['nombre']!,
                 child: CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.white24,
-                  backgroundImage: AssetImage(ciudad['imagen']!),
+                  backgroundImage: AssetImage(
+                    ciudad['imagen']!,
+                  ), //// Foto circular
                 ),
               ),
               title: Text(
@@ -91,14 +108,27 @@ class Count extends StatelessWidget {
               ),
               trailing: const Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.white, // Flecha blanca
+                color: Colors.white,
                 size: 20,
               ),
               onTap: () {
+                // Navigator.push: Añade la pantalla de detalle al stack de navegación
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Pantalladetalle(ciudad: ciudad),
+                    builder: (context) => Pantalladetalle(
+                      ciudad:
+                          ciudad, // Paso de datos: Enviamos el objeto ciudad
+                      // Enviar función: Pasamos la lógica de borrado como callback
+                      onDelete: () {
+                        // setState: Notifica al framework que la lista ha cambiado y debe redibujar
+                        setState(() {
+                          ciudades.removeAt(
+                            index,
+                          ); // Elimina el elemento por su posición
+                        });
+                      },
+                    ),
                   ),
                 );
               },

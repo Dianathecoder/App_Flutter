@@ -9,28 +9,36 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // GlobalKey: Identificador único del Form para validar sus campos desde el botón
   final _formKey = GlobalKey<FormState>();
+
+  // TextEditingController: "Espías" que controlan y leen lo que el usuario escribe
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
+    // dispose(): Limpia los controladores de la memoria cuando cerramos la pantalla
     _nameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
   void _intentarLogin() {
+    // validate(): Dispara todos los 'validator' del formulario. Retorna true si todo es correcto
     if (_formKey.currentState!.validate()) {
+      // Comprobación lógica de credenciales
       if (_nameController.text == "user" &&
           _passwordController.text == "pass12345") {
         Navigator.push(
           context,
           MaterialPageRoute(
+            // Pasamos el nombre escrito al constructor de la siguiente pantalla
             builder: (context) => Count(username: _nameController.text),
           ),
         );
       } else {
+        // ScaffoldMessenger: Muestra el SnackBar (mensaje flotante abajo) en caso de error
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Usuario o password incorrectos")),
         );
@@ -51,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
         elevation: 0,
       ),
       body: SingleChildScrollView(
+        // Permite hacer scroll si el teclado tapa los campos
         padding: const EdgeInsets.all(25),
         child: Form(
           key: _formKey,
@@ -81,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 10),
               TextFormField(
-                controller: _nameController,
+                controller: _nameController, // Vinculamos con su controlador
                 decoration: InputDecoration(
                   hintText: "Introduce tu nombre",
                   prefixIcon: const Icon(
@@ -114,7 +123,8 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 10),
               TextFormField(
                 controller: _passwordController,
-                obscureText: true,
+                obscureText:
+                    true, // Oculta el texto (puntos negros) para seguridad
                 decoration: InputDecoration(
                   hintText: "Introduce tu Contraseña",
                   prefixIcon: const Icon(Icons.lock_outline, color: mainColor),
@@ -164,7 +174,8 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: _intentarLogin,
+                  onPressed:
+                      _intentarLogin, // Llama a la función de validación al pulsar
                   child: const Text(
                     "INICIAR SESIÓN",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),

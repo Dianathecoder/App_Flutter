@@ -28,9 +28,6 @@ Este proyecto no es solo visual, sino que implementa mecánicas clave del framew
 *   **Navegación:** Rutas nombradas (`/login`) y `MaterialPageRoute` para el paso dinámico de argumentos.
 *   **Recursos:** Gestión de assets locales (imágenes).
 
-##  Capturas de Pantalla
-
-*(Nota para Diana: Añade aquí 2 o 3 capturas o, idealmente, un GIF mostrando la animación Hero al pulsar una ciudad)*
 
 | Login & Validación | Lista de Ciudades | Animación Hero (Detalle) |
 | :---: | :---: | :---: |

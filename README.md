@@ -1,4 +1,4 @@
-#  City Explorer - Flutter UI App
+# 🌍 City Explorer - Flutter UI App
 
 ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
 ![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
@@ -29,11 +29,7 @@ Este proyecto no es solo visual, sino que implementa mecánicas clave del framew
 *   **Recursos:** Gestión de assets locales (imágenes).
 
 
-| Login & Validación | Lista de Ciudades | Animación Hero (Detalle) |
-| :---: | :---: | :---: |
-| <img src="URL_IMAGEN_1" width="250"/> | <img src="URL_IMAGEN_2" width="250"/> | <img src="URL_IMAGEN_3" width="250"/> |
-
-## ⚙️ Cómo ejecutar el proyecto
+##  Cómo ejecutar el proyecto
 
 1. Clona el repositorio: `git clone https://github.com/Dianathecoder/App_Flutter.git`
 2. Navega al directorio del proyecto y descarga las dependencias:
